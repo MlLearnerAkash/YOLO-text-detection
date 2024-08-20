@@ -1,0 +1,9 @@
+# custom.yaml
+
+path: ./dataset
+train: train.txt
+val:  val.txt
+test:  val.txt  # (optional)
+
+nc: 1  # number of classes
+names: ["$$"]  # class names
