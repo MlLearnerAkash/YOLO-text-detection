@@ -150,6 +150,7 @@ class ConfusionMatrix:
 
         n = matches.shape[0] > 0
         m0, m1, _ = matches.transpose().astype(np.int16)
+        print(">>>>>>>>>>>>", m0, m1)
         for i, gc in enumerate(gt_classes):
             j = m0 == i
             if n and sum(j) == 1:
