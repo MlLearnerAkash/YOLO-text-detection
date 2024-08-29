@@ -8,9 +8,9 @@ import re
 import os
 
 os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-# os.environ["MLFLOW_EXPERIMENT_NAME"] = "hindi-finetune"
+os.environ["MLFLOW_EXPERIMENT_NAME"] = "hindi-finetune-val"
 settings.update({
-    'mlflow': True,
+    'mlflow': False,
     'wandb' : False})
 
 
@@ -23,13 +23,12 @@ def on_fit_epoch_end(trainer):
 def main(
     base_model: str,
     datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/hindi-finetune-dataset.yaml",
-    epochs: int = 150,
     imgsz: int = 1024,
     batch: int = 7,
-    dropout: float = 0.0,
-    resume: bool = False,
     device = "0",
-    name: str= "hindi-finetune-87train-10test-280824",
+    conf: float = 0.35,
+    iou: float = 0.15,
+    name: str= "hindi-finetune-val-87-train-10-test",
     tracking_uri: str = "http://10.10.16.13:5000"
 ):
     try:
@@ -39,23 +38,23 @@ def main(
         # mlflow.set_tag('mlflow.runName', 'yolov8')
     except ImportError:
         print("mlflow not initlaized")
-    with mlflow.start_run():
-        model = YOLO(base_model)
-        model.add_callback("on_fit_epoch_end",on_fit_epoch_end)
-        results = model.train(
-            data=datasets,
-            epochs=epochs,
-            imgsz=imgsz,
-            batch=batch,
-            dropout=dropout,
-            resume=resume,
-            device = device,
-            name= name,
+    # with mlflow.start_run():
+    model = YOLO(base_model)
+    # model.add_callback("on_fit_epoch_end",on_fit_epoch_end)
+    results = model.val(
+        data=datasets,
+        imgsz=imgsz,
+        batch=batch,
+        device = device,
+        name= name,
+        conf = conf,
+        iou = iou
 
-        )
-        # mlflow.log_params("")
-        print(results)
-        mlflow.end_run()
+
+    )
+    # mlflow.log_params("")
+    # print(results)
+    # mlflow.end_run()
 
 
 if __name__ == "__main__":
