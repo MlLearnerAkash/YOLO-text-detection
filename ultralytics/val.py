@@ -26,9 +26,9 @@ def main(
     imgsz: int = 1024,
     batch: int = 7,
     device = "0",
-    conf: float = 0.35,
-    iou: float = 0.15,
-    name: str= "hindi-finetune-val-87-train-10-test",
+    conf: float = 0.55,
+    iou: float = 0.25,
+    name: str= "hindi-finetune-val-97-train-810-test",
     tracking_uri: str = "http://10.10.16.13:5000"
 ):
     try:

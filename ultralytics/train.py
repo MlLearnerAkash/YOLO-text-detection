@@ -7,8 +7,15 @@ import mlflow
 import re
 import os
 
-os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-# os.environ["MLFLOW_EXPERIMENT_NAME"] = "hindi-finetune"
+
+try:
+    os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
+    os.environ["MLFLOW_EXPERIMENT_NAME"] = "hindi_finetune_base_model_090924"
+    # mlflow.set_tag('mlflow.runName', 'yolov8')
+except ImportError:
+    print("mlflow not initlaized")
+
+
 settings.update({
     'mlflow': True,
     'wandb' : False})
@@ -22,23 +29,16 @@ def on_fit_epoch_end(trainer):
 
 def main(
     base_model: str,
-    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/hindi-finetune-dataset.yaml",
-    epochs: int = 150,
+    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/hindi_custom.yaml",
+    epochs: int = 450,
     imgsz: int = 1024,
     batch: int = 7,
     dropout: float = 0.0,
     resume: bool = False,
     device = "0",
-    name: str= "hindi-finetune-87train-10test-280824",
-    tracking_uri: str = "http://10.10.16.13:5000"
+    name: str= "hindi_finetune_base_model_090924",
 ):
-    try:
-        
-        mlflow.set_tracking_uri(tracking_uri)
-        mlflow.set_experiment(name)
-        # mlflow.set_tag('mlflow.runName', 'yolov8')
-    except ImportError:
-        print("mlflow not initlaized")
+    
     with mlflow.start_run():
         model = YOLO(base_model)
         model.add_callback("on_fit_epoch_end",on_fit_epoch_end)
