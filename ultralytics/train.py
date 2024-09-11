@@ -10,7 +10,7 @@ import os
 
 try:
     os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-    os.environ["MLFLOW_EXPERIMENT_NAME"] = "hindi_finetune_base_model_090924"
+    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_base_model_110924"
     # mlflow.set_tag('mlflow.runName', 'yolov8')
 except ImportError:
     print("mlflow not initlaized")
@@ -29,14 +29,15 @@ def on_fit_epoch_end(trainer):
 
 def main(
     base_model: str,
-    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/hindi_custom.yaml",
-    epochs: int = 450,
+    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/base_model.yaml",
+    epochs: int = 50,
     imgsz: int = 1024,
     batch: int = 7,
     dropout: float = 0.0,
     resume: bool = False,
     device = "0",
-    name: str= "hindi_finetune_base_model_090924",
+    name: str= "HW_base_model_110924_",
+    project = "//home/akash/ws/HW_Base_Model"
 ):
     
     with mlflow.start_run():
@@ -51,6 +52,7 @@ def main(
             resume=resume,
             device = device,
             name= name,
+            project = project
 
         )
         # mlflow.log_params("")
