@@ -2,7 +2,7 @@
 <div align="center">
   <p>
     <a href="https://cvit.iiit.ac.in/" target="_blank">
-      <img width="100%" src="/home/akash/ws/YOLO-text-detection/ultralytics/resources/logo.jpg" alt="YOLO Vision banner"></a>
+      <img width="100%" src="./resources/logo.jpg" alt="YOLO Vision banner"></a>
   </p>
 
 [中文](https://docs.ultralytics.com/zh/) | [한국어](https://docs.ultralytics.com/ko/) | [日本語](https://docs.ultralytics.com/ja/) | [Русский](https://docs.ultralytics.com/ru/) | [Deutsch](https://docs.ultralytics.com/de/) | [Français](https://docs.ultralytics.com/fr/) | [Español](https://docs.ultralytics.com/es/) | [Português](https://docs.ultralytics.com/pt/) | [Türkçe](https://docs.ultralytics.com/tr/) | [Tiếng Việt](https://docs.ultralytics.com/vi/) | [العربية](https://docs.ultralytics.com/ar/) <br>
