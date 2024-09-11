@@ -33,18 +33,18 @@ WORKDIR /ultralytics
 
 # Copy contents and configure git
 COPY . .
-RUN sed -i '/^\[http "https:\/\/github\.com\/"\]/,+1d' .git/config
+# RUN sed -i '/^\[http "https:\/\/github\.com\/"\]/,+1d' .git/config
 ADD https://github.com/ultralytics/assets/releases/download/v8.2.0/yolov8n.pt .
 
 # Install pip packages
 RUN python3 -m pip install --upgrade pip wheel
 # Pin TensorRT-cu12==10.1.0 to avoid 10.2.0 bug https://github.com/ultralytics/ultralytics/pull/14239 (note -cu12 must be used)
-RUN pip install -e ".[export]" "tensorrt-cu12==10.1.0" "albumentations>=1.4.6" comet pycocotools
+# RUN pip install -e ".[export]" "tensorrt-cu12==10.1.0" "albumentations>=1.4.6" comet pycocotools
 
 # Run exports to AutoInstall packages
 # Edge TPU export fails the first time so is run twice here
-RUN yolo export model=tmp/yolov8n.pt format=edgetpu imgsz=32 || yolo export model=tmp/yolov8n.pt format=edgetpu imgsz=32
-RUN yolo export model=tmp/yolov8n.pt format=ncnn imgsz=32
+# RUN yolo export model=tmp/yolov8n.pt format=edgetpu imgsz=32 || yolo export model=tmp/yolov8n.pt format=edgetpu imgsz=32
+# RUN yolo export model=tmp/yolov8n.pt format=ncnn imgsz=32
 # Requires <= Python 3.10, bug with paddlepaddle==2.5.0 https://github.com/PaddlePaddle/X2Paddle/issues/991
 RUN pip install "paddlepaddle>=2.6.0" x2paddle
 # Fix error: `np.bool` was a deprecated alias for the builtin `bool` segmentation error in Tests

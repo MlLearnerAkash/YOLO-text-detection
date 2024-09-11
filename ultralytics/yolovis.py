@@ -34,10 +34,11 @@ def main():
     for file in all_files:
         if '.txt' in file:
             annotations.append(file)
-        elif '.jpg' or '.jpeg' or '.png' in file:
+        elif '.jpg' in file:
             images.append(file)
 
     if len(images) > len(annotations):
+        print(len(images), len(annotations))
         print("Some images dont have annotations")
         return
 
