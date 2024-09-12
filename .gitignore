@@ -352,3 +352,5 @@ crashlytics-build.properties
 fabric.properties
 dataset/*
 HW_base_model_110924
+
+htmodel
