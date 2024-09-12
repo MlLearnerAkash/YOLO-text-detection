@@ -1,0 +1,5 @@
+outs:
+    - md5: c3e6ae51bda5b1c5a9f56b3fc13b604d.dir
+      size: 2264294
+      path: HW_base_model_110924
+      nfiles: 7
