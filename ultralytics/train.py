@@ -6,12 +6,14 @@ import typer
 import mlflow
 import re
 import os
+import dagshub
 
 
 try:
     os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_base_model_110924"
+    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_hindi_130924"
     # mlflow.set_tag('mlflow.runName', 'yolov8')
+    dagshub.init(repo_owner='manna.phys', repo_name='YOLO-text-detection', mlflow=True)
 except ImportError:
     print("mlflow not initlaized")
 
@@ -29,15 +31,15 @@ def on_fit_epoch_end(trainer):
 
 def main(
     base_model: str,
-    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/base_model.yaml",
-    epochs: int = 50,
+    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/hindi.yaml",
+    epochs: int = 250,
     imgsz: int = 1024,
-    batch: int = 7,
+    batch: int = 6,
     dropout: float = 0.0,
     resume: bool = False,
     device = "0",
-    name: str= "HW_base_model_110924_",
-    project = "//home/akash/ws/HW_Base_Model"
+    name: str= "HW_hindi_130924_",
+    project = "//home/akash/ws/artifacts/HW/hindi_230924"
 ):
     
     with mlflow.start_run():
@@ -56,7 +58,7 @@ def main(
 
         )
         # mlflow.log_params("")
-        print(results)
+        # print(results)
         mlflow.end_run()
 
 
