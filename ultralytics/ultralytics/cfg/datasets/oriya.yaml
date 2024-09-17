@@ -1,0 +1,6 @@
+path: /home/akash/ws/dataset/hand_written/label # dataset root dir
+train: train_oriya.txt # train images (relative to 'path') 118287 images
+val: test_oriya.txt # val images (relative to 'path') 5000 images
+test: test_oriya.txt # 20288 of 40670 images, submit to https://competitions.codalab.org/competitions/20794
+names:
+  0: t

@@ -11,7 +11,7 @@ import dagshub
 
 try:
     os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_hindi_130924"
+    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_oriya_170924"
     # mlflow.set_tag('mlflow.runName', 'yolov8')
     dagshub.init(repo_owner='manna.phys', repo_name='YOLO-text-detection', mlflow=True)
 except ImportError:
@@ -31,15 +31,15 @@ def on_fit_epoch_end(trainer):
 
 def main(
     base_model: str,
-    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/hindi.yaml",
+    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/oriya.yaml",
     epochs: int = 250,
     imgsz: int = 1024,
     batch: int = 6,
     dropout: float = 0.0,
     resume: bool = False,
     device = "0",
-    name: str= "HW_hindi_130924_",
-    project = "//home/akash/ws/artifacts/HW/hindi_230924"
+    name: str= "HW_oriya_170924_",
+    project = "//home/akash/ws/artifacts/HW/oriya_170924"
 ):
     
     with mlflow.start_run():
