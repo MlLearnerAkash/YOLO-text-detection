@@ -74,8 +74,8 @@ def process_directory(json_dir, image_dir, output_folder):
 
 if __name__ == "__main__":
     # Directories containing JSON files and images
-    json_dir = '/home/akash/ws/dataset/hand_written/test_data/book_851_ravi_style_gt/ravi_style_gt/images'   # Replace with your directory containing JSON files
-    image_dir = '/home/akash/ws/dataset/hand_written/test_data/book_851_ravi_style_gt/ravi_style_gt/images' # Replace with your images directory
-    output_folder = '/home/akash/ws/dataset/hand_written/test_data/book_851_ravi_style_gt/ravi_style_gt/images'   # Replace with your desired output folder
+    json_dir = '/home/akash/ws/dataset/hand_written/test_data/oriya/book_901_ravi_style_gt/ravi_style_gt/CRAFT_output/oriya'   # Replace with your directory containing JSON files
+    image_dir = '/home/akash/ws/dataset/hand_written/test_data/oriya/book_901_ravi_style_gt/ravi_style_gt/images' # Replace with your images directory
+    output_folder = '/home/akash/ws/dataset/hand_written/test_data/oriya/book_901_ravi_style_gt/ravi_style_gt/CRAFT_output/oriya'   # Replace with your desired output folder
 
     process_directory(json_dir, image_dir, output_folder)

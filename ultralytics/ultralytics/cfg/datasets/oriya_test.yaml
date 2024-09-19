@@ -1,0 +1,6 @@
+path: /home/akash/ws/dataset/hand_written/test_data/oriya/CRAFT_output/oriya # dataset root dir
+train: /home/akash/ws/dataset/hand_written/test_data/oriya/CRAFT_output/oriya # train images (relative to 'path') 118287 images
+val: /home/akash/ws/dataset/hand_written/test_data/oriya/CRAFT_output/oriya # val images (relative to 'path') 5000 images
+# test: oriya_images.txt # 20288 of 40670 images, submit to https://competitions.codalab.org/competitions/20794
+names:
+  0: t

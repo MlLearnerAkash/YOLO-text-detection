@@ -3,11 +3,11 @@ import json
 import requests
 
 # Define the directory containing the images
-image_directory = "/home/akash/ws/dataset/hand_written/test_data/book_851_ravi_style_gt/ravi_style_gt/images"
+image_directory = "/home/akash/ws/dataset/hand_written/test_data/oriya/book_901_ravi_style_gt/ravi_style_gt/images"
 url = "https://ilocr.iiit.ac.in/layout/"
-payload = {'model': 'openseg_v1'}
+payload = {'model': 'craft'}
 headers = {}
-
+json_dir = "/home/akash/ws/dataset/hand_written/test_data/oriya/book_901_ravi_style_gt/ravi_style_gt/CRAFT_output/oriya"
 # Loop through all image files in the directory
 for image_file in os.listdir(image_directory):
     if image_file.endswith(".jpg") or image_file.endswith(".jpeg"):
@@ -33,7 +33,7 @@ for image_file in os.listdir(image_directory):
 
                 # Save the response JSON with the same name as the image file
                 json_filename = os.path.splitext(image_file)[0] + ".json"
-                json_path = os.path.join(image_directory, json_filename)
+                json_path = os.path.join(json_dir, json_filename)
                 
                 with open(json_path, 'w') as json_file:
                     json.dump(json_response, json_file, indent=4)

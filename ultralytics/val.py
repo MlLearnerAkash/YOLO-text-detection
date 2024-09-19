@@ -8,7 +8,7 @@ import re
 import os
 
 os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-os.environ["MLFLOW_EXPERIMENT_NAME"] = "hindi-finetune-val"
+os.environ["MLFLOW_EXPERIMENT_NAME"] = "oriya_test"
 settings.update({
     'mlflow': False,
     'wandb' : False})
@@ -22,14 +22,14 @@ def on_fit_epoch_end(trainer):
 
 def main(
     base_model: str,
-    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/hindi-finetune-dataset.yaml",
+    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/oriya_test.yaml",
     imgsz: int = 1024,
     batch: int = 7,
     device = "0",
-    conf: float = 0.55,
-    iou: float = 0.25,
-    name: str= "hindi-finetune-val-97-train-810-test",
-    tracking_uri: str = "http://10.10.16.13:5000"
+    conf: float = 0.15,
+    iou: float = 0.15,
+    name: str= "test_oriya",
+    tracking_uri: str = "http://10.10.16.13:5000",
 ):
     try:
         
@@ -48,7 +48,8 @@ def main(
         device = device,
         name= name,
         conf = conf,
-        iou = iou
+        iou = iou,
+        cache = False
 
 
     )
