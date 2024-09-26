@@ -43,7 +43,7 @@ def denormalize_yolo_bbox(yolo_bbox: List[float], image_width: int, image_height
     y_max = int(y_center_pixel + (height_pixel / 2))
     
     return x_min, y_min, x_max, y_max
-
+#TODO: Change to centre based iou
 # # Function to calculate Intersection over Union (IoU)
 # def compute_iou(box1: List[int], box2: List[int]) -> float:
 #     x1, y1, x2, y2 = min(box1[0], box2[0]), min(box1[1], box2[1]), max(box1[2], box2[2]), max(box1[3], box2[3])
