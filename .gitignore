@@ -1,3 +1,5 @@
 ultralytics_old_bad/
 
 mmodel
+runs
+ultralytics/fp_det
