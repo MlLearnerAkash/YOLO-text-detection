@@ -62,6 +62,18 @@ def denormalize_yolo_bbox(yolo_bbox: List[float], image_width: int, image_height
 #     iou = intersection_area / box2_area if union_area != 0 else 0
 #     return iou
 
+# Function to check if the center of box2 is inside box1
+def is_center_inside(box1: List[int], box2: List[int]) -> bool:
+    # Calculate the center of box2
+    box2_center_x = (box2[0] + box2[2]) / 2
+    box2_center_y = (box2[1] + box2[3]) / 2
+    
+    # Check if the center of box2 is inside box1
+    if (box1[0] <= box2_center_x <= box1[2]) and (box1[1] <= box2_center_y <= box1[3]):
+        return True
+    else:
+        return False
+
 def compute_iou(box1, box2, x1y1x2y2=True, GIoU=False, DIoU=False, CIoU=False, eps=1e-9):
     box1 = torch.tensor(box1)
     box2 = torch.tensor(box2)
@@ -144,30 +156,58 @@ def smallest_enclosing_box(boxes: torch.Tensor) -> np.ndarray:
     return points[hull.vertices]
 
 
-def annotate_image_with_bbox(image_path: str, bbox: torch.Tensor, output_image_path: str):
+# def annotate_image_with_bbox(image_path: str, bbox: torch.Tensor, output_image_path: str):
+#     """
+#     Annotate the image with the bounding box.
+
+#     Parameters:
+#         image_path (str): Path to the input image.
+#         bbox (torch.Tensor): Bounding box to annotate in format [x_min, y_min, x_max, y_max].
+#         output_image_path (str): Path to save the annotated image.
+#     """
+#     # Read the image using OpenCV
+#     image = cv2.imread(image_path)
+
+#     # Convert points to the required format for OpenCV (integer coordinates)
+#     convex_hull = bbox.astype(int)
+
+#     # Draw the convex hull on the image as a polygon
+#     cv2.polylines(image, [convex_hull], isClosed=True, color=(0, 255, 0), thickness=2)
+
+#     # Optionally, fill the polygon with a transparent color
+#     # cv2.fillPoly(image, [convex_hull], color=(0, 255, 0, 50))
+
+#     # Save the output image
+#     cv2.imwrite(output_image_path, image)
+
+
+
+def annotate_image_with_bbox(image_path: str, bboxes: List[torch.Tensor], output_image_path: str):
     """
-    Annotate the image with the bounding box.
+    Annotate the image with multiple bounding boxes.
 
     Parameters:
         image_path (str): Path to the input image.
-        bbox (torch.Tensor): Bounding box to annotate in format [x_min, y_min, x_max, y_max].
+        bboxes (list of torch.Tensor): List of bounding boxes to annotate, each in format [x_min, y_min, x_max, y_max].
         output_image_path (str): Path to save the annotated image.
     """
     # Read the image using OpenCV
     image = cv2.imread(image_path)
 
-    # Convert points to the required format for OpenCV (integer coordinates)
-    convex_hull = bbox.astype(int)
+    # Iterate through each bounding box
+    for bbox in bboxes:
+        # Convert points to the required format for OpenCV (integer coordinates)
+        convex_hull = bbox.astype(int)
 
-    # Draw the convex hull on the image as a polygon
-    cv2.polylines(image, [convex_hull], isClosed=True, color=(0, 255, 0), thickness=2)
+        # Draw the convex hull on the image as a polygon
+        cv2.polylines(image, [convex_hull], isClosed=True, color=(0, 255, 0), thickness=2)
 
-    # Optionally, fill the polygon with a transparent color
-    # cv2.fillPoly(image, [convex_hull], color=(0, 255, 0, 50))
+        # Optionally, fill the polygon with a transparent color
+        # cv2.fillPoly(image, [convex_hull], color=(0, 255, 0, 50))
 
     # Save the output image
     cv2.imwrite(output_image_path, image)
-
+    print(f"Annotated image saved at {output_image_path}")
   
 # Function to find predictions that completely intersect with a specific ground truth box
 def find_complete_intersections_with_gt_box(gt_box: List[int], predictions: List[List[int]]) -> List[List[int]]:
@@ -175,10 +215,10 @@ def find_complete_intersections_with_gt_box(gt_box: List[int], predictions: List
     
     # Iterate over all predicted bounding boxes
     for pred_box in predictions:
-        iou = compute_iou(pred_box, gt_box)
+        iou = is_center_inside(gt_box, pred_box)
         
         # If IoU is 1, we consider it as a complete intersection
-        if iou >=0.150 :
+        if iou :
             complete_intersections.append(pred_box)
     
     return complete_intersections
@@ -198,16 +238,25 @@ def process_files(ground_truth_file: str, prediction_file: str) -> Dict[Tuple[in
         
         # Store the ground truth box as the key and the list of complete intersections as the value
         complete_intersections_dict[tuple(gt_box)] = complete_intersections
-        if len(complete_intersections)> 1:
-         annotate_image_with_bbox("/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/target_1192.jpg", smallest_enclosing_box(torch.tensor(complete_intersections)), "./target_1192_anno.jpg")
+        # if len(complete_intersections)> 0:
+    
     return complete_intersections_dict
 
 # Example Usage
 ground_truth_file = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/gt/1192.txt'  # Path to the ground truth file
-prediction_file = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/yolo_result4/labels/target_1192.txt'  # Path to the predictions file
+prediction_file = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/yolo_result/labels/target_1192.txt'  # Path to the predictions file
 
 result = process_files(ground_truth_file, prediction_file)
 
+hull_points = []
+for val in list(result.values()):
+    hull_point = smallest_enclosing_box(torch.tensor(val))
+    hull_points.append(hull_point)
+
+annotate_image_with_bbox("/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/target_1192.jpg", 
+                        # smallest_enclosing_box(torch.tensor(list(result.values()))), 
+                        hull_points,
+                        "./target_1192_anno.jpg")
 print("Complete intersections between predictions and ground truth boxes:")
 # for gt_box, intersecting_preds in result.items():
 #     print(f"Ground Truth Box {gt_box}: {intersecting_preds}")
