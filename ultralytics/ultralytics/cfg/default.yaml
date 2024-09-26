@@ -108,7 +108,7 @@ degrees: 0.50 # (float) image rotation (+/- deg)
 translate: 0.1 # (float) image translation (+/- fraction)
 scale: 0.5 # (float) image scale (+/- gain)
 shear: 0.50 # (float) image shear (+/- deg)
-perspective: 0.3 # (float) image perspective (+/- fraction), range 0-0.001
+perspective: 0.001 # (float) image perspective (+/- fraction), range 0-0.001
 flipud: 0.5 # (float) image flip up-down (probability)
 fliplr: 0.5 # (float) image flip left-right (probability)
 bgr: 0.1 # (float) image channel BGR (probability)
