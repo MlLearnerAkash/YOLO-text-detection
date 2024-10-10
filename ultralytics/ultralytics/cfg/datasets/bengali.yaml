@@ -1,0 +1,14 @@
+# path: /home/akash/ws/dataset/hand_written/label # dataset root dir
+# train: train_bengali.txt # train images (relative to 'path') 118287 images
+# val: test_bengali.txt # val images (relative to 'path') 5000 images
+# test: test_bengali.txt # 20288 of 40670 images, submit to https://competitions.codalab.org/competitions/20794
+# names:
+#   0: t
+
+#NOTE: Finetune
+path: /home/akash/ws/dataset/hand_written/finetune_data/bengali/images/ # dataset root dir
+train: train # train images (relative to 'path') 118287 images
+val: val # val images (relative to 'path') 5000 images
+test: val # 20288 of 40670 images, submit to https://competitions.codalab.org/competitions/20794
+names:
+  0: t
