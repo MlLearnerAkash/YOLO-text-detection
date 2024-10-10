@@ -166,7 +166,7 @@ if __name__ == "__main__":
         processor = BoundingBoxProcessor(image_width=1800, image_height=4000)
 
         ground_truth_dir = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/gt'
-        prediction_dir = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/labels'
+        prediction_dir = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/labels/labels'
         image_dir = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/images'
         output_dir = '/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/output'
 

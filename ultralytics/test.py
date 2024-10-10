@@ -4,7 +4,7 @@ from ultralytics import YOLO
 
 # # Load a model
 model = YOLO("/home/akash/ws/artifacts/HW/hindi_230924/HW_hindi_130924_/weights/best.pt")  # pretrained YOLOv8n model
-source = "/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/"
+source = "/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/images"
 # Run batched inference on a list of images
 results = model(source= source,
                 conf=0.15, iou= 0.15, save_txt= True, save = True,

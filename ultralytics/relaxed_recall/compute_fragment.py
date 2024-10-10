@@ -261,5 +261,5 @@ print("Complete intersections between predictions and ground truth boxes:")
 # for gt_box, intersecting_preds in result.items():
 #     print(f"Ground Truth Box {gt_box}: {intersecting_preds}")
 
-with open("mapping.json", "w") as f:
-    json.dump(str(result), f)
+with open("mapping.txt", "w") as f:
+    f.write()
