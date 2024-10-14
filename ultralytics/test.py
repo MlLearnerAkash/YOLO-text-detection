@@ -3,8 +3,8 @@
 from ultralytics import YOLO
 
 # # Load a model
-model = YOLO("/home/akash/ws/artifacts/HW/hindi_230924/HW_hindi_130924_/weights/best.pt")  # pretrained YOLOv8n model
-source = "/home/akash/ws/YOLO-text-detection/ultralytics/relaxed_recall/test_data/images"
+model = YOLO("/home/akash/ws/artifacts/HW/HW_telugu_v02_081024/HW_telugu_v02_081024_2/weights/best.pt")  # pretrained YOLOv8n model
+source = "/home/akash/ws/dataset/hand_written/finetune_data/telugu_test/images/val/24300.jpg"
 # Run batched inference on a list of images
 results = model(source= source,
                 conf=0.15, iou= 0.15, save_txt= True, save = True,

@@ -11,8 +11,8 @@ import dagshub
 
 try:
     os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_malayam_v01_091024"
-    # mlflow.set_tag('mlflow.runName', 'yolov8')
+    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_marathi_v02_141024"
+    # mlflow.set_tag('mlflow.runName', 'freeze-15')
     dagshub.init(repo_owner='manna.phys', repo_name='YOLO-text-detection', mlflow=True)
 except ImportError:
     print("mlflow not initlaized")
@@ -31,16 +31,16 @@ def on_fit_epoch_end(trainer):
 
 def main(
     base_model: str,
-    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/malayam.yaml",
+    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/marathi.yaml",
     epochs: int = 150,
     imgsz: int = 1024,
     batch: int = 6,
-    dropout: float = 0.0,
+    dropout: float = 0.10,
     resume: bool = False,
     device = "0",
-    name: str= "HW_malayam_v01_081024_",
-    project = "/home/akash/ws/artifacts/HW/HW_malayam_v01_091024/",
-    freeze: int = 20
+    name: str= "HW_marathi_v02_141024_",
+    project = "/home/akash/ws/artifacts/HW/HW_marathi_v02_141024/",
+    freeze: int = 5,
 ):
     
     with mlflow.start_run():
@@ -56,6 +56,7 @@ def main(
             device = device,
             name= name,
             project = project,
+            freeze= freeze
 
         )
         # mlflow.log_params("")
