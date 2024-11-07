@@ -11,7 +11,7 @@ import dagshub
 
 try:
     os.environ['MLFLOW_TRACKING_URI'] = 'http://10.10.16.13:5000'
-    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_tamil_v02_281024"
+    os.environ["MLFLOW_EXPERIMENT_NAME"] = "HW_hindi_semi_supervised_v01_161024"
     # mlflow.set_tag('mlflow.runName', 'freeze-15')
     dagshub.init(repo_owner='manna.phys', repo_name='YOLO-text-detection', mlflow=True)
 except ImportError:
@@ -31,19 +31,16 @@ def on_fit_epoch_end(trainer):
 
 def main(
     base_model: str,
-    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/tamil.yaml",
-    epochs: int = 50,
+    datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics_semi_supervised/data_configs/unlabelled/hindi.yaml",
+    epochs: int = 150,
     imgsz: int = 1024,
     batch: int = 6,
     dropout: float = 0.05,
     resume: bool = False,
     device = "0",
-    name: str= "HW_tamil_v02_281024_",
-    project = "/home/akash/ws/artifacts/HW/HW_tamil_v02_281024/",
-    freeze: int = 0,
-    single_cls :bool = True,
-    auto_augment: str = "randaugment",
-    patience: int = 30
+    name: str= "HW_hindi_semi_supervised_v01_161024_",
+    project = "/home/akash/ws/artifacts/HW/HW_hindi_semi_supervised_v01_161024/",
+    freeze: int = 5,
 ):
     
     with mlflow.start_run():
@@ -59,10 +56,7 @@ def main(
             device = device,
             name= name,
             project = project,
-            freeze= freeze,
-            single_cls = single_cls,
-            auto_augment = auto_augment,
-            patience=patience
+            freeze= freeze
 
         )
         # mlflow.log_params("")
