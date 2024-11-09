@@ -1,0 +1,76 @@
+{
+    "page": 1,
+    "words": [
+      {
+        "text": "Hello",
+        "bounding_box": {
+          "x_min": 10,
+          "y_min": 20,
+          "x_max": 60,
+          "y_max": 40
+        },
+        "reading_order": 1
+      },
+      {
+        "text": "world",
+        "bounding_box": {
+          "x_min": 70,
+          "y_min": 20,
+          "x_max": 130,
+          "y_max": 40
+        },
+        "reading_order": 2
+      },
+      {
+        "text": "This",
+        "bounding_box": {
+          "x_min": 10,
+          "y_min": 50,
+          "x_max": 50,
+          "y_max": 70
+        },
+        "reading_order": 3
+      },
+      {
+        "text": "is",
+        "bounding_box": {
+          "x_min": 60,
+          "y_min": 50,
+          "x_max": 80,
+          "y_max": 70
+        },
+        "reading_order": 4
+      },
+      {
+        "text": "a",
+        "bounding_box": {
+          "x_min": 90,
+          "y_min": 50,
+          "x_max": 100,
+          "y_max": 70
+        },
+        "reading_order": 5
+      },
+      {
+        "text": "test",
+        "bounding_box": {
+          "x_min": 110,
+          "y_min": 50,
+          "x_max": 150,
+          "y_max": 70
+        },
+        "reading_order": 6
+      },
+      {
+        "text": "document",
+        "bounding_box": {
+          "x_min": 10,
+          "y_min": 80,
+          "x_max": 90,
+          "y_max": 100
+        },
+        "reading_order": 7
+      }
+    ]
+  }
+  
