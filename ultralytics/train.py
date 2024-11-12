@@ -32,7 +32,7 @@ def on_fit_epoch_end(trainer):
 def main(
     base_model: str,
     datasets: str = "/home/akash/ws/YOLO-text-detection/ultralytics/ultralytics/cfg/datasets/all_lang_human.yaml",
-    epochs: int = 50,
+    epochs: int = 150,
     imgsz: int = 1024,
     batch: int = 6,
     dropout: float = 0.05,
