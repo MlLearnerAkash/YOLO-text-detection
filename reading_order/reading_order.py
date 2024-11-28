@@ -140,17 +140,18 @@ class BoundingBoxVisualizer:
         rows.append(current_row)  # Add the last row
 
         # Step 3: Sort each row by `x_min` (left to right)
-        ordered_boxes = []
+        
+        ordered_rows = []
         reading_order = 1
-
         for row in rows:
+            ordered_boxes = []
             row_sorted = sorted(row, key=lambda box: box["bounding_box"]['x_min'])
             for box in row_sorted:
                 box['reading_order'] = reading_order
                 ordered_boxes.append(box)
                 reading_order += 1
-
-        return ordered_boxes
+            ordered_rows.append(ordered_boxes)
+        return ordered_rows
 
     def draw_bounding_boxes(self, image_path, bounding_boxes, output_path):
         """
@@ -173,31 +174,32 @@ class BoundingBoxVisualizer:
         text_color = (0, 255, 0)  # Green color for text in BGR
         
         # Draw each bounding box
-        for box_info in bounding_boxes:
-            bbox = box_info["bounding_box"]
-            # Draw the rectangle
-            cv2.rectangle(
-                image,
-                (int(bbox["x_min"]), int(bbox["y_min"])),
-                (int(bbox["x_max"]), int(bbox["y_max"])),
-                color=(255, 0, 0),  # Blue color in BGR format
-                thickness=2
-            )
-            
-            # Draw the reading order if present
-            if "reading_order" in box_info:
-                reading_order = str(box_info["reading_order"])
-                cv2.putText(
+        for bounding_box in bounding_boxes:
+            for box_info in bounding_box:
+                bbox = box_info["bounding_box"]
+                # Draw the rectangle
+                cv2.rectangle(
                     image,
-                    reading_order,
-                    (int(bbox["x_min"]), int(bbox["y_min"]) - 15),  # Position above the top-left corner
-                    font,
-                    font_scale,
-                    text_color,
-                    thickness=font_thickness,
-                    lineType=cv2.LINE_AA
+                    (int(bbox["x_min"]), int(bbox["y_min"])),
+                    (int(bbox["x_max"]), int(bbox["y_max"])),
+                    color=(255, 0, 0),  # Blue color in BGR format
+                    thickness=2
                 )
-        
+                
+                # Draw the reading order if present
+                if "reading_order" in box_info:
+                    reading_order = str(box_info["reading_order"])
+                    cv2.putText(
+                        image,
+                        reading_order,
+                        (int(bbox["x_min"]), int(bbox["y_min"]) - 15),  # Position above the top-left corner
+                        font,
+                        font_scale,
+                        text_color,
+                        thickness=font_thickness,
+                        lineType=cv2.LINE_AA
+                    )
+            
         # Save the resulting image
         cv2.imwrite(output_path, image)
         print(f"Image with bounding boxes and reading order saved to {output_path}")
